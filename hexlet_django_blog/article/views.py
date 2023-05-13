@@ -7,5 +7,5 @@ def index(request):
     return render(
         request,
         'article/index.html',
-        context={'info': item[0]}
+        context={'info': item}
     )
