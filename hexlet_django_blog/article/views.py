@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.views import View
 
 from hexlet_django_blog.article.models import Article
@@ -13,21 +13,14 @@ class IndexView(View):
         })
 
 
-# Create your views here.
-'''
-class Article(View):
+class ArticleView(View):
 
-    def main(self):
-        return redirect(reverse('article', kwargs={'tags': 'python', 'article_id': 12}))
-
-    def index(request, tags, article_id):
-        item = ['Articles']
+    def get(self, request, *args, **kwargs):
+        article = get_object_or_404(Article, id=kwargs['id'])
         return render(
             request,
-            'article/index.html',
-            context={'info': item,
-                     'tags': tags,
-                     'article_id': article_id}
+            'article/show.html',
+            context={
+                'article': article
+            }
         )
-        # return HttpResponse(f'любая строка а так же любой{item}')
-'''
