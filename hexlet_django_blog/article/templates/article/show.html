@@ -1,6 +1,17 @@
 {% extends "base.html" %}
 
+
+{% if messages %}
+{% for message in messages %}
+<div class="alert alert-{{ message.tags }}">
+    {{ message }}
+</div>
+{% endfor %}
+{% endif %}
+
+
 {% block content %}
-     <h1>{{ article.name }}</h1>
-    <div>{{ article.body }}</div>
+<h1>{{ article.name }}</h1>
+<div>{{ article.body }}</div>
 {% endblock %}
+
