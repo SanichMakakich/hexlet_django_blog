@@ -9,7 +9,7 @@ from hexlet_django_blog.article.models import Article
 class IndexView(View):
 
     def get(self, request, *args, **kwargs):
-        articles = Article.objects.all()[:15]
+        articles = Article.objects.all()  # [:15]
         return render(request, 'article/index.html', context={
             'articles': articles,
         })
@@ -65,6 +65,19 @@ class ArticleFormEditView(View):
                       'article/update.html',
                       {'form': form,
                        'article_id': article_id})
+
+
+class ArticleFormDestroyView(View):
+
+    def post(self, request, *args, **kwargs):
+        article_id = kwargs.get('id')
+        article = Article.objects.get(id=article_id)
+        if article:
+            messages.info(request, 'Статья успешно удалена')
+            article.delete()
+        else:
+            messages.info(request, 'Ошибка удаления статьи')
+        return redirect('articles')
 
 
 class CommentArticleView(View):

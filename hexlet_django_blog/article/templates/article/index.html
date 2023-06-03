@@ -12,7 +12,13 @@
 
 {% endif %}
 {% for article in articles %}
-<h2><a href="{{article.id}}">{{article.name}}</a></h2> <a href="{{article.id}}/edit" methods="post">Изменить</a>
+<h2><a href="{{article.id}}">{{article.name}}</a></h2>
 <div>{{ article.body|slice:":200" }}</div>
+<a href="{{article.id}}/edit" methods="post">Изменить</a>
+<form action="{% url 'articles_destroy' id=article.id %}"  rel="nofollow" method="post">
+    {% csrf_token %}
+    <input type="submit" value="Удалить">
+</form>
+
 {% endfor %}
 {% endblock %}
